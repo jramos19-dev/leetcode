@@ -889,8 +889,14 @@
 
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.Design.Serialization;
 using System.Globalization;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Swift;
+using System.Runtime.Intrinsics;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Transactions;
 
 // int MissingNumber(int[] nums) {
 
@@ -1071,5 +1077,129 @@ using System.Security.Cryptography.X509Certificates;
 
 //     }
 //     return results;
+
+// }
+
+
+
+
+// bool IsValidBST(TreeNode root)
+// {
+
+//     bool valid(TreeNode node, int left, int right)
+//     {
+//         if (node == null)
+//         {
+//             return true;
+//         }
+//         if (!(node.val < right && left < node.val))
+//         {
+//             return true;
+//         }
+
+//         return valid(node.left, left, node.val) &&
+//         valid(node.right, node.val, right);
+
+
+
+//     }
+
+
+
+//     return valid(root,int.MinValue, int.MaxValue);
+
+// }
+
+// int KthSmallest(TreeNode root, int k)
+// {
+
+//     int count = 0;
+//     Stack<TreeNode> stack = new Stack<TreeNode>();
+//     stack.Push(root);
+//     TreeNode curr = root;
+//     while (stack.Count > 0 && curr != null)
+//     {
+//         while (curr != null)
+//         {
+//             stack.Push(curr);
+//             curr = curr.left;
+//         }
+//         stack.Pop();
+//         count++;
+//         if (count == k)
+//         {
+//             return curr.val;
+//         }
+//         curr = curr.right;
+
+//     }
+
+    
+
+// TreeNode BuildTree(int[] preorder, int[] inorder)
+// {
+//     if (preorder == null || inorder == null || preorder.Length == 0 || inorder.Length == 0)
+//     {
+//         return null;
+//     }
+//     TreeNode root = new TreeNode(preorder[0]);
+//     var mid = Array.IndexOf(inorder,preorder[0]);
+//     root.left = BuildTree(preorder[1..(mid + 1)], inorder[0..mid]);
+//     root.right = BuildTree(preorder[(mid + 1)..], inorder[(mid + 1)..]);
+
+//     return root;
+// }
+
+
+// class TreeNode
+// {
+//     public int val; public TreeNode left;
+//     public TreeNode right;
+//     public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+//     {
+//         this.val = val; this.left = left;
+//         this.right = right;
+//     }
+// }
+
+
+// int Search(int[] nums, int target)
+// {
+//     int l = 0, r = nums.Length - 1;
+
+//     while (l < r)
+//     {
+//         int middle = (l + r) / 2;
+//         if (target == nums[middle])
+//         {
+//             return middle;
+//         }
+
+//         //left sorted 
+//         if (nums[l] <= nums[middle])
+//         {
+//             if (target > nums[middle])
+//             {
+//                 l = middle + 1;
+//             }
+//             else
+//             {
+//                 r = middle - 1;
+//             }
+
+//         }
+//         else
+//         {
+//             if (target < nums[middle] || target > nums[r])
+//             {
+//                 r = middle - 1;
+//             }
+//             else
+//             {
+//                 l = middle + 1;
+//             }
+//         }
+//     }
+//     return -1;
 
 // }
