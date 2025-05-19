@@ -1134,7 +1134,7 @@ using System.Transactions;
 
 //     }
 
-    
+
 
 // TreeNode BuildTree(int[] preorder, int[] inorder)
 // {
@@ -1151,16 +1151,150 @@ using System.Transactions;
 // }
 
 
-// class TreeNode
+// TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 // {
-//     public int val; public TreeNode left;
-//     public TreeNode right;
-//     public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+//     TreeNode current = root;
+
+//     while (current != null)
 //     {
-//         this.val = val; this.left = left;
-//         this.right = right;
+//         if (p.val > current.val && q.val > current.val)
+//         {
+//             current = current.right;
+//         }
+//         else if (p.val < current.val && q.val < current.val)
+//         {
+//             current = current.left;
+//         }
+//         else return current;
 //     }
+
+//     return current;
+
+
 // }
+
+
+// List<List<int>> LevelOrder(TreeNode root)
+// {
+//     List<List<int>> results = new List<List<int>>();
+//     if (root == null) return results;
+//     Queue<TreeNode> nodeQueue = new Queue<TreeNode>();
+
+//     nodeQueue.Enqueue(root);
+
+//     while (nodeQueue.Count > 0)
+//     {
+//         int levelSize = nodeQueue.Count;
+//         List<int> level = new List<int>();
+//         for (int i = 0; i < levelSize; i++)
+//         {
+//             TreeNode node = nodeQueue.Dequeue();
+//             if (node != null)
+//             {
+//                 level.Add(node.val);
+//                 nodeQueue.Enqueue(node.left);
+//                 nodeQueue.Enqueue(node.right);
+//             }
+//         }
+//         if (level.Count > 0)
+//         {
+//             results.Add(level);
+
+//         }
+
+//     }
+//     return results;
+
+// }
+
+
+// List<List<int>> CombinationSum(int[] nums, int target)
+// {
+//     List<List<int>> results = new List<List<int>>();
+//     Array.Sort(nums);
+//     dfs(0, new List<int>(), 0, nums, target);
+//     return results;
+
+
+
+//     void dfs(int i, List<int> cur, int total, int[] nums, int target)
+//     {
+//         if (total == target)
+//         {
+//             results.Add(new List<int>(cur));
+//             return;
+//         }
+
+//         for (int j = i; j < nums.Length; j++)
+//         {
+//             if (total + nums[j] > target)
+//             {
+//                 return;
+//             }
+//             cur.Add(nums[j]);
+//             dfs(j, cur, total + nums[j], nums, target);
+//             cur.RemoveAt(cur.Count - 1);
+//         }
+
+
+
+//     }
+
+
+// }
+
+bool Exist(char[][] board, string word)
+{
+    int rows = board.Length;
+    int columns = board.GetLength(1);
+
+    for (int r = 0; r < rows; r++)
+    {
+        for (int c = 0; c < columns; c++)
+        {
+            if (dfs(board, word, r, c, 0))
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+
+
+    HashSet<int> set = new HashSet<int>();
+    bool dfs(char[][] board, string word, int r, int c, int i)
+    {
+        if (i == word.Length)
+        {
+            return true;
+        }
+        if (r < 0 || c < 0 || r >= rows || c >= columns || word[i] != board[r][c] || board[r][c] == '#')
+        {
+            return false;
+        }
+        board[r][c] = '#';
+        bool result = dfs(board, word, r + 1, c, i + 1) ||
+                      dfs(board, word, r - 1, c, i + 1) ||
+                      dfs(board, word, r, c + 1, i + 1) ||
+                      dfs(board, word, r, c - 1, i + 1);
+        board[r][c] = word[i];
+        return result;
+    }
+    
+}
+
+
+
+class TreeNode
+{
+    public int val; public TreeNode left;
+    public TreeNode right;
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+    {
+        this.val = val; this.left = left;
+        this.right = right;
+    }
+}
 
 
 // int Search(int[] nums, int target)
@@ -1203,3 +1337,4 @@ using System.Transactions;
 //     return -1;
 
 // }
+
