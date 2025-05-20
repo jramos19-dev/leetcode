@@ -894,6 +894,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Swift;
 using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
@@ -1243,47 +1244,125 @@ using System.Transactions;
 
 // }
 
-bool Exist(char[][] board, string word)
-{
-    int rows = board.Length;
-    int columns = board.GetLength(1);
+// bool Exist(char[][] board, string word)
+// {
+//     int rows = board.Length;
+//     int columns = board.GetLength(1);
 
-    for (int r = 0; r < rows; r++)
-    {
-        for (int c = 0; c < columns; c++)
-        {
-            if (dfs(board, word, r, c, 0))
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-
-
-    HashSet<int> set = new HashSet<int>();
-    bool dfs(char[][] board, string word, int r, int c, int i)
-    {
-        if (i == word.Length)
-        {
-            return true;
-        }
-        if (r < 0 || c < 0 || r >= rows || c >= columns || word[i] != board[r][c] || board[r][c] == '#')
-        {
-            return false;
-        }
-        board[r][c] = '#';
-        bool result = dfs(board, word, r + 1, c, i + 1) ||
-                      dfs(board, word, r - 1, c, i + 1) ||
-                      dfs(board, word, r, c + 1, i + 1) ||
-                      dfs(board, word, r, c - 1, i + 1);
-        board[r][c] = word[i];
-        return result;
-    }
-    
-}
+//     for (int r = 0; r < rows; r++)
+//     {
+//         for (int c = 0; c < columns; c++)
+//         {
+//             if (dfs(board, word, r, c, 0))
+//             {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
 
 
+//     HashSet<int> set = new HashSet<int>();
+//     bool dfs(char[][] board, string word, int r, int c, int i)
+//     {
+//         if (i == word.Length)
+//         {
+//             return true;
+//         }
+//         if (r < 0 || c < 0 || r >= rows || c >= columns || word[i] != board[r][c] || board[r][c] == '#')
+//         {
+//             return false;
+//         }
+//         board[r][c] = '#';
+//         bool result = dfs(board, word, r + 1, c, i + 1) ||
+//                       dfs(board, word, r - 1, c, i + 1) ||
+//                       dfs(board, word, r, c + 1, i + 1) ||
+//                       dfs(board, word, r, c - 1, i + 1);
+//         board[r][c] = word[i];
+//         return result;
+//     }
+
+// }
+// int CountSubstrings(string s)
+// {
+//     // for odd l and r start on same index
+//     int l = 0, r = 0;
+//     int result = 0;
+
+//     for (int i = 0; i < s.Length; i++)
+//     {
+//         l = r = i;
+//         //odd
+//         while (l >= 0 && r < s.Length && s[l] == s[r])
+//         {
+//             result += 1;
+//             l--;
+//             r++;
+//         }
+
+//         //even 
+//         l = i;
+//         r = l + 1;
+//         while (l >= 0 && r < s.Length && s[l] == s[r])
+//         {
+//             result++;
+//             l--;
+//             r++;
+//         }
+//     }
+
+
+//     //for even r starts at l+1;
+
+
+//     return result;
+
+// }
+
+//recursive caching 
+//     int NumDecodings(string s)
+// {
+//     int[] dp = new int[s.Length + 1];
+//     dp[s.Length] = 1;
+//     for (int i = s.Length - 1; i >= 0; i--)
+//     {
+//         if (s[i] == 0)
+//         {
+//             dp[i] = 0;
+//         }
+//         else
+//         {
+//             dp[i] = dp[i + 1];
+//             if(i+1 < s.Length && (s[i] =='1' || s[i]=='2' && s[i+1] < '7')){
+//                 dp[i] += dp[i + 2];
+//             }
+//         }
+//     }
+//     return dp[0]; 
+
+// }
+
+// int CoinChange(int[] coins, int amount)
+// {
+//     int[] dp = new int[amount + 1];
+//     Array.Fill(dp, amount + 1);
+//     dp[0] = 0;
+//     for (int i = 1; i <= amount; i++)
+//     {
+//         foreach (int coin in coins)
+//         {
+//             if (coin <= i)
+//             {
+//                 dp[i] = Math.Min(dp[i], dp[i - coin] + 1);
+//             }
+//         }
+//     }
+//     return dp[amount] > amount ? -1 : dp[amount];
+
+
+
+
+// }
 
 class TreeNode
 {
@@ -1338,3 +1417,57 @@ class TreeNode
 
 // }
 
+class MedianFinder {
+    PriorityQueue<int, int> large;
+    PriorityQueue<int, int> small;
+
+    public MedianFinder()
+    {
+        small = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
+        large = new PriorityQueue<int, int>();
+    }
+
+    void AddNum(int num)
+    {
+        if (large.Count != 0 && num > large.Peek())
+        {
+            large.Enqueue(num, num);
+        }
+        else
+        {
+            small.Enqueue(num, num);
+        }
+
+        if (small.Count > large.Count + 1)
+        {
+            int val = small.Dequeue();
+            large.Enqueue(val, val);
+        }
+        else if (large.Count > small.Count + 1)
+        {
+            int val = large.Dequeue();
+            small.Enqueue(val, val);
+        }
+
+        }
+
+
+    double FindMedian()
+    {
+        if (small.Count > large.Count)
+        {
+            return small.Peek();
+        }
+        else if (large.Count > small.Count)
+        {
+            return large.Peek();
+        }
+        int smallTop = small.Peek();
+        return (smallTop + large.Peek()) / 2.0;
+
+    }
+
+
+    
+
+}
