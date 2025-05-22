@@ -890,7 +890,11 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.Design.Serialization;
+using System.Data;
 using System.Globalization;
+using System.Reflection.Metadata.Ecma335;
+using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Swift;
 using System.Runtime.Intrinsics;
@@ -898,6 +902,7 @@ using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Transactions;
+using Microsoft.VisualBasic;
 
 // int MissingNumber(int[] nums) {
 
@@ -1364,16 +1369,6 @@ using System.Transactions;
 
 // }
 
-class TreeNode
-{
-    public int val; public TreeNode left;
-    public TreeNode right;
-    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
-    {
-        this.val = val; this.left = left;
-        this.right = right;
-    }
-}
 
 
 // int Search(int[] nums, int target)
@@ -1417,57 +1412,545 @@ class TreeNode
 
 // }
 
-class MedianFinder {
-    PriorityQueue<int, int> large;
-    PriorityQueue<int, int> small;
+// class MedianFinder {
+//     PriorityQueue<int, int> large;
+//     PriorityQueue<int, int> small;
 
-    public MedianFinder()
+//     public MedianFinder()
+//     {
+//         small = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
+//         large = new PriorityQueue<int, int>();
+//     }
+
+//     void AddNum(int num)
+//     {
+//         if (large.Count != 0 && num > large.Peek())
+//         {
+//             large.Enqueue(num, num);
+//         }
+//         else
+//         {
+//             small.Enqueue(num, num);
+//         }
+
+//         if (small.Count > large.Count + 1)
+//         {
+//             int val = small.Dequeue();
+//             large.Enqueue(val, val);
+//         }
+//         else if (large.Count > small.Count + 1)
+//         {
+//             int val = large.Dequeue();
+//             small.Enqueue(val, val);
+//         }
+
+//         }
+
+
+//     double FindMedian()
+//     {
+//         if (small.Count > large.Count)
+//         {
+//             return small.Peek();
+//         }
+//         else if (large.Count > small.Count)
+//         {
+//             return large.Peek();
+//         }
+//         int smallTop = small.Peek();
+//         return (smallTop + large.Peek()) / 2.0;
+
+//     }
+
+
+
+
+// // }
+// public class TrieNode {
+//     public Dictionary<char, TrieNode> children = 
+//                             new Dictionary<char, TrieNode>();
+//     public bool endOfWord = false;
+// }
+
+
+// public class PrefixTree
+// {
+//     private TrieNode root;
+//     public PrefixTree()
+//     {
+//         root = new TrieNode();
+//     }
+
+//     public void Insert(string word)
+//     {
+//         TrieNode current = root;
+//         foreach (char c in word)
+//         {
+//             if (!current.children.ContainsKey(c))
+//             {
+//                 current.children['c'] = new TrieNode();
+
+//             }
+//             current = current.children[c];
+//         }
+//         current.endOfWord = true;
+//     }
+
+//     public bool Search(string word)
+//     {
+//         TrieNode current = root;
+//         foreach (char c in word)
+//         {
+//             if (!current.children.ContainsKey(c))
+//             {
+//                 return false;
+//             }
+//             current = current.children[c];
+//         }
+//         return current.endOfWord;
+
+
+//     }
+
+//     public bool StartsWith(string prefix)
+//     {
+//         TrieNode current = root;
+//         foreach (char c in prefix)
+//         {
+//             if (!current.children.ContainsKey(c))
+//             {
+//                 return false;
+//             }
+//             current = current.children[c];
+//         }
+//         return true;
+//     }
+// }
+
+
+// class TreeNode
+// {
+//     public int val; public TreeNode left;
+//     public TreeNode right;
+//     public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
+//     {
+//         this.val = val; this.left = left;
+//         this.right = right;
+//     }
+// }
+
+
+// public class WordDictionary {
+//     private TrieNode root;
+//     public WordDictionary() {
+//         root = new TrieNode();
+//     }
+
+//     public void AddWord(string word)
+//     {
+//         TrieNode current = root;
+//         foreach (char c in word)
+//         {
+//             if (!current.children.ContainsKey(c))
+//             {
+//                 current.children[c] = new TrieNode();
+//             }
+//             current = current.children[c];
+//         }
+//         current.endOfWord = true;
+
+//     }
+
+//     public bool Search(string word)
+//     {
+//         return dfs(word, 0, root);
+//         bool dfs(string word, int index, TrieNode node)
+//         {
+//             if (index == word.Length)
+//             {
+//                 return node.endOfWord;
+//             }
+//             char c = word[index];
+
+//             if (c == '.')
+//             {
+//                 foreach (var child in node.children.Values)
+//                 {
+//                     return dfs(word, index + 1, child);
+//                 }
+//                 return false;
+
+//             }
+//             else
+//             {
+//                 if (!node.children.ContainsKey(c)) return false;
+//                 return dfs(word, index + 1, node.children[c]);
+
+//             }
+
+//         }
+//     }
+// }
+
+// int[][] directions = new int[][] {
+//     new int[] {1,0},
+//     new int[] {-1,0},
+//     new int[] {0,1},
+//     new int[] {0,-1}
+// };
+
+
+// int NumIslands(char[][] grid)
+// {
+//     int Rows = grid.Length;
+//     int Cols = grid[0].Length;
+//     int islands = 0;
+
+//     for (int r = 0; r < Rows; r++) {
+//         for (int c = 0; c < Cols; c++)
+//         {
+//             if (grid[r][c] == '1')
+//             {
+//                 bfs(r, c);
+//                 islands++;
+//             }
+//         }
+//     }
+
+//     return islands;
+
+//     void bfs(int r, int c)
+//     {
+//         Queue<int[]> queue = new Queue<int[]>();
+//         grid[r][c] = '0';
+//         queue.Enqueue(new int[] { r, c });
+
+//         while (queue.Count > 0)
+//         {
+//             var node = queue.Dequeue();
+//             int row = node[0], col = node[1];
+
+//             foreach (var dir in directions)
+//             {
+//                 int nr = row + dir[0], nc = col + dir[1];
+
+//                 if (nr >= 0 && nc >= 0 && nr < grid.Length && nc < grid[0].Length && grid[nr][nc] == '1')
+//                 {
+//                     queue.Enqueue(new int[] { nr, nc });
+//                     grid[nr][nc] = '0';
+//                 }
+//             }
+//         }
+
+//     }
+
+
+
+
+// }
+
+
+
+//graphs
+
+// Node CloneGraph(Node node)
+// {
+//     var oldNodesToNewNodes = new Dictionary<Node, Node>();
+
+//     Node dfs(Node node)
+//     {
+
+//         //adds node to the hashmap / dictionary if it doesnt yet contain it , 
+//         if (oldNodesToNewNodes.ContainsKey(node))
+//         {
+//             return oldNodesToNewNodes[node];
+//         }
+//         Node copy = new Node(node.val);
+//         oldNodesToNewNodes[node] = copy;
+
+//         //clones all the neighbors 
+//         foreach (var neighbor in node.neighbors)
+//         {
+//             copy.neighbors.Append(dfs(neighbor));
+//         }
+
+//         return copy;
+
+//     }
+
+//     return node == null ? null : dfs(node);
+// }
+
+
+
+
+
+// public class Node
+// {
+//     public int val;
+//     public IList<Node> neighbors;
+
+//     public Node()
+//     {
+//         val = 0;
+//         neighbors = new List<Node>();
+//     }
+
+//     public Node(int _val)
+//     {
+//         val = _val;
+//         neighbors = new List<Node>();
+//     }
+
+//     public Node(int _val, List<Node> _neighbors)
+//     {
+//         val = _val;
+//         neighbors = _neighbors;
+//     }
+// }
+
+//     int[][] directions = new int[][] { 
+//         new int[] { 1, 0 }, new int[] { -1, 0 }, 
+//         new int[] { 0, 1 }, new int[] { 0, -1 } 
+//     };
+
+// List<List<int>> PacificAtlantic(int[][] heights)
+// {
+
+//     int ROWS = heights.Length;
+//     int COLS = heights[0].Length;
+//     bool[,] pacific = new bool[ROWS, COLS];
+//     bool[,] atlantic = new bool[ROWS, COLS];
+
+//     for (int c = 0; c < COLS; c++)
+//     {
+
+//         dfs(0, c, pacific, heights);
+//         dfs(ROWS - 1, c, atlantic, heights);
+//     }
+//     for (int r = 0; r < ROWS; r++)
+//     {
+//         dfs(r, 0, pacific, heights);
+//         dfs(r, COLS - 1, atlantic, heights);
+//     }
+
+//     List<List<int>> results = new List<List<int>>();
+//     for (int r = 0; r < ROWS; r++)
+//     {
+//         for (int c = 0; c < ROWS; c++)
+//         {
+//             if (pacific[r, c] && atlantic[r, c])
+//             {
+//                 results.Add(new List<int> { r, c });
+//             }
+//         }
+//     }
+
+//     return results;
+
+//     void dfs(int r, int c, bool[,] ocean, int[][] heights)
+//     {
+
+//         ocean[r, c] = true;
+//         foreach (var dir in directions)
+//         {
+//             int nr = r + dir[0], nc = c + dir[1];
+//             if (nr >= 0 && nr < heights.Length && nc >= 0 &&
+//                 nc < heights[0].Length && !ocean[nr, nc] &&
+//                 heights[nr][nc] >= heights[r][c])
+//             {
+//                 dfs(nr, nc, ocean, heights);
+//             }
+//         }
+
+
+//     }
+    
+// }
+
+
+// bool CanFinish(int numCourses, int[][] prerequisites)
+// {
+//     //map each course to its prereqs
+//     Dictionary<int, List<int>> preReqMap = new Dictionary<int, List<int>>();
+
+//     // store all courses along the dfs path
+//     HashSet<int> visiting = new HashSet<int>();
+
+
+//     for (int i = 0; i < numCourses; i++)
+//     {
+//         preReqMap[i] = new List<int>();
+
+//     }
+//     foreach (var req in prerequisites)
+//     {
+//         preReqMap[req[0]].Add(req[1]);
+//     }
+
+//     for (int c = 0; c < numCourses; c++)
+//     {
+//         if (!dfs(c))
+//         {
+//             return false;
+//         }
+//     }
+//     return true;
+
+//     bool dfs(int cc)
+// {
+//     //if we are traversing a dfs and we loop back to a node
+//     if (visiting.Contains(cc))
+//     {
+//         return false;
+//     }
+//     if (preReqMap[cc].Count == 0)
+//     {
+//         return true;
+//     }
+//     //add to our dfs path 
+//     visiting.Add(cc);
+//     foreach (int pre in preReqMap[cc])
+//     {
+//         //if the dfs returns false we encountered a cycle down the line 
+//         if (!dfs(pre))
+//         {
+//             return false;
+//         }
+//     }
+//     //we remove the current course if it passes the checks
+//     visiting.Remove(cc);
+//     preReqMap[cc].Clear();
+//     return true;
+
+
+
+
+
+    //     }
+
+
+    // }
+
+
+
+//     bool ValidTree(int n, int[][] edges)
+// {
+
+//     if (edges.Length > n - 1)
+//     {
+//         return false;
+//     }
+
+//     if (n == 0) return true;
+//     List<List<int>> edgeMap = new List<List<int>>();
+//     for (int i = 0; i < n; i++)
+//     {
+//         edgeMap.Add(new List<int>());
+//     }
+
+//     foreach (var edge in edges)
+//     {
+//         edgeMap[edge[0]].Add(edge[1]);
+//         edgeMap[edge[1]].Add(edge[0]);
+//     }
+
+//     HashSet<int> visiting = new HashSet<int>();
+
+//     bool dfs(int currentNode, int prevNode)
+//     {
+//         //if we are traversing a dfs and we loop back to a node
+//         if (visiting.Contains(currentNode))
+//         {
+//             return false;
+//         }
+
+
+
+//         //add to our dfs path 
+//         visiting.Add(currentNode);
+
+//         foreach (var touchingNode in edgeMap[currentNode])
+//         {
+//             // the touching node is just where we came from
+//             if (touchingNode == prevNode)
+//             {
+//                 continue;
+//             }
+//             else
+//             {
+//                 //touching node is not the previous node meaning we hit a cycle
+//                 // if we dont hit a cycle then everything is googd
+//                 if (!dfs(touchingNode, currentNode)) return false;
+//             }
+//         }
+//         //and we return true;
+//         return true;
+//     }
+
+//     if (!dfs(0, -1))
+//     {
+//         return false;
+//     }
+//     return visiting.Count == n;
+// }
+
+
+int CountComponents(int n, int[][] edges)
+{
+    int[] parents = new int[n];
+    int[] ranks = new int[n];
+
+    for (int i = 0; i < n; i++)
     {
-        small = new PriorityQueue<int, int>(Comparer<int>.Create((a, b) => b.CompareTo(a)));
-        large = new PriorityQueue<int, int>();
+        parents[i] = i;
+        ranks[i] = 1;
     }
 
-    void AddNum(int num)
+
+    int find(int n1)
     {
-        if (large.Count != 0 && num > large.Peek())
+        int res = n1;
+        while (res != parents[res])
         {
-            large.Enqueue(num, num);
+            //setting the parent to the grandparent
+            parents[res] = parents[parents[res]];
+            res = parents[res];
+
+        }
+        return res;
+
+    }
+    int union(int n1, int n2)
+    {
+        int p1 = find(n1);
+        int p2 = find(n2);
+
+        if (p1 == p2)
+        {
+            return 0;
+        }
+        if (ranks[p2] > ranks[p1])
+        {
+            parents[p1] = p2;
+            ranks[p2] += ranks[p1];
         }
         else
         {
-            small.Enqueue(num, num);
+            parents[p2] = p1;
+            ranks[p1] += ranks[p2];
         }
-
-        if (small.Count > large.Count + 1)
-        {
-            int val = small.Dequeue();
-            large.Enqueue(val, val);
-        }
-        else if (large.Count > small.Count + 1)
-        {
-            int val = large.Dequeue();
-            small.Enqueue(val, val);
-        }
-
-        }
-
-
-    double FindMedian()
-    {
-        if (small.Count > large.Count)
-        {
-            return small.Peek();
-        }
-        else if (large.Count > small.Count)
-        {
-            return large.Peek();
-        }
-        int smallTop = small.Peek();
-        return (smallTop + large.Peek()) / 2.0;
-
+        return 1;
     }
 
+    int res = n;
+    foreach (var edge in edges)
+    {
+        res -= union(edge[0], edge[1]);
 
-    
+    }
+    return res;
+
+
 
 }
