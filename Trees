@@ -1,0 +1,114 @@
+
+
+// public class TreeNode {
+//     public int val;
+//     public TreeNode left;
+//     public TreeNode right;
+//     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+//         this.val = val;
+//         this.left = left;
+//         this.right = right;
+//     }
+// }
+
+// public int MaxPathSum(TreeNode root) {
+//     // Initialize result with the root's value (safe default, will be updated)
+//     int res = root.val;
+
+//     // Start the DFS traversal from the root node
+//     dfs(root);
+
+//     // After DFS, res will hold the maximum path sum in the tree
+//     return res;
+
+//     // Local function that performs DFS and calculates path sums
+//     int dfs(TreeNode node){
+//         // Base case: if the node is null, return 0 (contributes nothing)
+//         if(node == null){
+//             return 0;
+//         }
+
+//         // Recursively find the max path sum from the left child (only take positive paths)
+//         int leftMax = Math.Max(dfs(node.left), 0);
+
+//         // Recursively find the max path sum from the right child (only take positive paths)
+//         int rightMax = Math.Max(dfs(node.right), 0);
+
+//         // Update the global maximum if the current path (left + node + right) is better
+//         res = Math.Max(res, node.val + leftMax + rightMax);
+
+//         // Return the max gain if continuing the path upwards (only one side can be chosen)
+//         return node.val + Math.Max(leftMax, rightMax);
+//     }
+// }
+
+
+public class Codec
+{
+    // Converts a binary tree into a string using preorder DFS traversal.
+    public string Serialize(TreeNode root)
+    {
+        List<string> res = new List<string>();
+
+        // Perform DFS to record the tree structure and values
+        void DfsSerialize(TreeNode node, List<string> res)
+        {
+            if (node == null)
+            {
+                // Use a special marker "N" to represent null nodes (needed to reconstruct the exact tree)
+                res.Add("N");
+                return;
+            }
+
+            // Record the current node's value
+            res.Add(node.val.ToString());
+
+            // Recurse into left subtree
+            DfsSerialize(node.left, res);
+
+            // Recurse into right subtree
+            DfsSerialize(node.right, res);
+        }
+
+        DfsSerialize(root, res);
+
+        // Join the recorded values with commas to form a single string
+        return string.Join(",", res);
+    }
+
+    // Reconstructs the binary tree from its serialized string representation.
+    public TreeNode Deserialize(string data)
+    {
+        // Split the string back into an array of values
+        string[] vals = data.Split(',');
+
+        // Use an index to keep track of the current position in the array during DFS
+        int i = 0;
+
+        // Perform DFS to rebuild the tree from the list of values
+        TreeNode DfsDeserialize(string[] vals, ref int i)
+        {
+            // If we see "N", it represents a null node, so return null and move forward
+            if (vals[i] == "N")
+            {
+                i++;
+                return null;
+            }
+
+            // Create a new TreeNode using the current value
+            TreeNode node = new TreeNode(int.Parse(vals[i]));
+            i++; // Move to the next value
+
+            // Recursively build the left subtree
+            node.left = DfsDeserialize(vals, ref i);
+
+            // Recursively build the right subtree
+            node.right = DfsDeserialize(vals, ref i);
+
+            // Return the constructed subtree rooted at this node
+            return node;
+        }
+
+        return DfsDeserialize(vals, ref i); // Begin deserialization from the root
+    }
+}
