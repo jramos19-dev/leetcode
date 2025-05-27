@@ -12,3 +12,4 @@ C:\Dev\Source\C# Projects\leetcode\obj\Debug\net9.0\refint\leetcode.dll
 C:\Dev\Source\C# Projects\leetcode\obj\Debug\net9.0\leetcode.pdb
 C:\Dev\Source\C# Projects\leetcode\obj\Debug\net9.0\leetcode.genruntimeconfig.cache
 C:\Dev\Source\C# Projects\leetcode\obj\Debug\net9.0\ref\leetcode.dll
+C:\Dev\Source\C# Projects\leetcode\obj\Debug\net9.0\leetcode.sourcelink.json

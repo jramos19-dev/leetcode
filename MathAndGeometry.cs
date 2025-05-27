@@ -1,5 +1,7 @@
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Swift;
 
 public class MathAndGeometry
 {
@@ -56,71 +58,104 @@ public class MathAndGeometry
 
     }
 
-public void SetZeroes(int[][] matrix)
-{
-    // Given an m x n matrix of integers, if an element is 0, set its entire row and column to 0.
-    // Must update the matrix in-place and aim for O(1) additional space.
-
-    // Arrays to hold dimensions — these are unused in logic but used for getting lengths
-    int[] ROWS = new int[matrix.Length];
-    int[] COLS = new int[matrix[0].Length];
-
-    // Flag to track if the first row needs to be zeroed
-    bool firstRow = false;
-
-    // First pass: mark rows and columns to be zeroed using the first row and column
-    for (int r = 0; r < ROWS.Length; r++)
+    public void SetZeroes(int[][] matrix)
     {
-        for (int c = 0; c < COLS.Length; c++)
-        {
-            if (matrix[r][c] == 0)
-            {
-                // Mark column to be zeroed by setting top cell of column to 0
-                matrix[0][c] = 0;
+        // Given an m x n matrix of integers, if an element is 0, set its entire row and column to 0.
+        // Must update the matrix in-place and aim for O(1) additional space.
 
-                if (r > 0)
-                {
-                    // Mark row to be zeroed by setting left cell of row to 0
-                    matrix[r][0] = 0;
-                }
-                else
-                {
-                    // If the zero is in the first row, track it separately
-                    firstRow = true;
-                }
-            }
-        }
-    }
+        // Arrays to hold dimensions — these are unused in logic but used for getting lengths
+        int[] ROWS = new int[matrix.Length];
+        int[] COLS = new int[matrix[0].Length];
 
-    // Second pass: set matrix cells to 0 based on markers, skipping first row and column
-    for (int r = 1; r < ROWS.Length; r++)
-    {
-        for (int c = 1; c < COLS.Length; c++)
-        {
-            // If this cell's row or column was marked, set it to 0
-            if (matrix[0][c] == 0 || matrix[r][0] == 0)
-            {
-                matrix[r][c] = 0;
-            }
-        }
-    }
+        // Flag to track if the first row needs to be zeroed
+        bool firstRow = false;
 
-    // If the top-left cell is 0, the first column needs to be zeroed
-    if (matrix[0][0] == 0)
-    {
+        // First pass: mark rows and columns to be zeroed using the first row and column
         for (int r = 0; r < ROWS.Length; r++)
         {
-            matrix[r][0] = 0;
+            for (int c = 0; c < COLS.Length; c++)
+            {
+                if (matrix[r][c] == 0)
+                {
+                    // Mark column to be zeroed by setting top cell of column to 0
+                    matrix[0][c] = 0;
+
+                    if (r > 0)
+                    {
+                        // Mark row to be zeroed by setting left cell of row to 0
+                        matrix[r][0] = 0;
+                    }
+                    else
+                    {
+                        // If the zero is in the first row, track it separately
+                        firstRow = true;
+                    }
+                }
+            }
+        }
+
+        // Second pass: set matrix cells to 0 based on markers, skipping first row and column
+        for (int r = 1; r < ROWS.Length; r++)
+        {
+            for (int c = 1; c < COLS.Length; c++)
+            {
+                // If this cell's row or column was marked, set it to 0
+                if (matrix[0][c] == 0 || matrix[r][0] == 0)
+                {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
+
+        // If the top-left cell is 0, the first column needs to be zeroed
+        if (matrix[0][0] == 0)
+        {
+            for (int r = 0; r < ROWS.Length; r++)
+            {
+                matrix[r][0] = 0;
+            }
+        }
+
+        // If the first row had a zero, zero out the entire first row
+        if (firstRow)
+        {
+            for (int c = 0; c < COLS.Length; c++)
+            {
+                matrix[0][c] = 0;
+            }
         }
     }
 
-    // If the first row had a zero, zero out the entire first row
-    if (firstRow)
+
+
+    public bool IsHappy(int n)
     {
-        for (int c = 0; c < COLS.Length; c++)
+        var visited = new HashSet<int>();
+
+        while (!visited.Contains(n))
         {
-            matrix[0][c] = 0;
+            n = sumOfSquares(n);
+            if (n == 1)
+            {
+                return true;
+            }
+        }
+        return false;
+
+        int sumOfSquares(int n)
+        {
+            // 
+            int output = 0;
+            while (n != 0)
+            {
+                int digit = n % 10;
+                digit *= digit;
+                output += digit;
+                n /= 10;
+            }
+            return output;
+
+
         }
     }
-}
 }

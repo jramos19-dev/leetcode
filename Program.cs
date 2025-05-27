@@ -1765,7 +1765,7 @@ using Microsoft.VisualBasic;
 
 
 //     }
-    
+
 // }
 
 
@@ -1827,10 +1827,10 @@ using Microsoft.VisualBasic;
 
 
 
-    //     }
+//     }
 
 
-    // }
+// }
 
 
 
@@ -1896,61 +1896,64 @@ using Microsoft.VisualBasic;
 // }
 
 
-int CountComponents(int n, int[][] edges)
-{
-    int[] parents = new int[n];
-    int[] ranks = new int[n];
+// int CountComponents(int n, int[][] edges)
+// {
+//     int[] parents = new int[n];
+//     int[] ranks = new int[n];
 
-    for (int i = 0; i < n; i++)
-    {
-        parents[i] = i;
-        ranks[i] = 1;
-    }
-
-
-    int find(int n1)
-    {
-        int res = n1;
-        while (res != parents[res])
-        {
-            //setting the parent to the grandparent
-            parents[res] = parents[parents[res]];
-            res = parents[res];
-
-        }
-        return res;
-
-    }
-    int union(int n1, int n2)
-    {
-        int p1 = find(n1);
-        int p2 = find(n2);
-
-        if (p1 == p2)
-        {
-            return 0;
-        }
-        if (ranks[p2] > ranks[p1])
-        {
-            parents[p1] = p2;
-            ranks[p2] += ranks[p1];
-        }
-        else
-        {
-            parents[p2] = p1;
-            ranks[p1] += ranks[p2];
-        }
-        return 1;
-    }
-
-    int res = n;
-    foreach (var edge in edges)
-    {
-        res -= union(edge[0], edge[1]);
-
-    }
-    return res;
+//     for (int i = 0; i < n; i++)
+//     {
+//         parents[i] = i;
+//         ranks[i] = 1;
+//     }
 
 
+//     int find(int n1)
+//     {
+//         int res = n1;
+//         while (res != parents[res])
+//         {
+//             //setting the parent to the grandparent
+//             parents[res] = parents[parents[res]];
+//             res = parents[res];
 
-}
+//         }
+//         return res;
+
+//     }
+//     int union(int n1, int n2)
+//     {
+//         int p1 = find(n1);
+//         int p2 = find(n2);
+
+//         if (p1 == p2)
+//         {
+//             return 0;
+//         }
+//         if (ranks[p2] > ranks[p1])
+//         {
+//             parents[p1] = p2;
+//             ranks[p2] += ranks[p1];
+//         }
+//         else
+//         {
+//             parents[p2] = p1;
+//             ranks[p1] += ranks[p2];
+//         }
+//         return 1;
+//     }
+
+//     int res = n;
+//     foreach (var edge in edges)
+//     {
+//         res -= union(edge[0], edge[1]);
+
+//     }
+//     return res;
+
+
+
+// }
+
+
+SearchAlgorithms.testCode();
