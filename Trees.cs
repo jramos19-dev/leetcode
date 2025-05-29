@@ -1,10 +1,13 @@
 using System.Diagnostics.Contracts;
 
-bool IsBalanced(TreeNode root)
+public class TreeProblems
 {
-    return dfs(root).Item1;
+    public bool IsBalanced(TreeNode root)
+    {
+        return dfs(root).Item1;
+    }
 
-    Tuple<bool, int> dfs(TreeNode root)
+    private Tuple<bool, int> dfs(TreeNode root)
     {
         if (root == null)
         {
@@ -17,12 +20,8 @@ bool IsBalanced(TreeNode root)
         bool balanced = (left.Item1 == true && right.Item1 == true && (Math.Abs(left.Item2 - right.Item2) <= 1));
         int height = 1 + Math.Max(left.Item2, right.Item2);
 
-
         return new Tuple<bool, int>(balanced ? true : false, height);
     }
-
-    
-
 }
 
 public class TreeNode
@@ -37,9 +36,3 @@ public class TreeNode
         this.right = right;
     }
 }
-
-
-
-
-
-

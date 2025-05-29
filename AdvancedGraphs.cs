@@ -51,7 +51,6 @@ public class AdvancedGraph {
             }
         }
 
-
         bool dfs(char c)
         {
             if (visited.ContainsKey(c))
@@ -71,9 +70,10 @@ public class AdvancedGraph {
             visited[c] = false;
             result.Add(c);
             return false;
-
         }
 
-
+        // Return the result as a string
+        result.Reverse();
+        return new string(result.ToArray());
     }
 }

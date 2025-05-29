@@ -1,4 +1,16 @@
-class Intervals
+public class Interval
+{
+    public int Start { get; set; }
+    public int End { get; set; }
+
+    public Interval(int start, int end)
+    {
+        Start = start;
+        End = end;
+    }
+}
+
+public class Intervals
 {
     public int[][] Insert(int[][] intervals, int[] newInterval)
     {
@@ -30,15 +42,10 @@ class Intervals
         // Add the last merged newInterval if not already added
         result.Add(newInterval);
         return result.ToArray();
-
-
     }
-
-
 
     public int[][] Merge(int[][] intervals)
     {
-
         //given an array of intervals where intervals[i] = [starti, endi] merge all
         //overalping intervals, and return an array of the non-overlapping intervals 
         //that cover all of the intervals in the input 
@@ -63,21 +70,19 @@ class Intervals
             // If the current interval overlaps with the last one in the result
             if (start <= lastEnd)
             {
-                // Merge them by extending the last interval’s end to the max of both ends
+                // Merge them by extending the last interval's end to the max of both ends
                 result[result.Count - 1][1] = Math.Max(lastEnd, end);
             }
             else
             {
-                // If there’s no overlap, add the current interval as a new entry
+                // If there's no overlap, add the current interval as a new entry
                 result.Add(new int[] { start, end });
             }
         }
 
         // Return the merged list of intervals as an array
         return result.ToArray();
-
     }
-
 
     public int EraseOverlapIntervals(int[][] intervals)
     {
@@ -88,8 +93,7 @@ class Intervals
         Array.Sort(intervals, (a, b) => a[0].CompareTo(b[0]));
         int prevEnd = intervals[0][1];
         
-        
-        for (int i =1; i < intervals.Length; i++)
+        for (int i = 1; i < intervals.Length; i++)
         {
             int start = intervals[i][0];
             int end = intervals[i][1];
@@ -102,15 +106,9 @@ class Intervals
                 result++;
                 prevEnd = Math.Min(end, prevEnd);
             }
-
-
-
         }
         return result;
-
     }
-
-
 
     public int MinMeetingRooms(List<Interval> intervals)
     {
@@ -123,13 +121,13 @@ class Intervals
         int[] endTimes = new int[intervals.Count];
 
         // Sort intervals by start time
-        intervals.Sort((a, b) => a[0].CompareTo(b[0]));
+        intervals.Sort((a, b) => a.Start.CompareTo(b.Start));
 
         // Populate start and end times
         for (int i = 0; i < intervals.Count; i++)
         {
-            startTimes[i] = intervals[i][0];
-            endTimes[i] = intervals[i][1];
+            startTimes[i] = intervals[i].Start;
+            endTimes[i] = intervals[i].End;
         }
 
         // Sort end times
@@ -154,10 +152,5 @@ class Intervals
         }
 
         return result;
-
     }
-
-
-
-
 }
