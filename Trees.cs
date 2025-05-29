@@ -1,6 +1,6 @@
 using System.Diagnostics.Contracts;
 
-public bool IsBalanced(TreeNode root)
+bool IsBalanced(TreeNode root)
 {
     return dfs(root).Item1;
 

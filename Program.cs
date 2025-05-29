@@ -1,15 +1,12 @@
-﻿// using System.ComponentModel;
-// using System.ComponentModel.DataAnnotations;
-// using System.Globalization;
-// using System.Net;
-// using System.Runtime.CompilerServices;
-// using System.Runtime.InteropServices;
-// using System.Runtime.Intrinsics.Arm;
-// using System.Runtime.Intrinsics.X86;
-// using System.Security.AccessControl;
-// using System.Security.Cryptography.X509Certificates;
-// using System.Text;
+﻿public class program
+{
+    static void Main(string[] args)
+    {
+        int[] nums = { 7, 6, 6, 7, 8 };
+        Console.WriteLine((nums));
 
+    }
+}
 // string[] strs = ["neet", "code", "love", "you"];
 
 
@@ -887,22 +884,22 @@
 //     return resultLength == int.MaxValue ? "" : s.Substring(results[0], resultLength);
 // }
 
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design.Serialization;
-using System.Data;
-using System.Globalization;
-using System.Reflection.Metadata.Ecma335;
-using System.Reflection.PortableExecutable;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.Swift;
-using System.Runtime.Intrinsics;
-using System.Runtime.Intrinsics.Arm;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Transactions;
-using Microsoft.VisualBasic;
+// using System.ComponentModel;
+// using System.ComponentModel.DataAnnotations;
+// using System.ComponentModel.Design.Serialization;
+// using System.Data;
+// using System.Globalization;
+// using System.Reflection.Metadata.Ecma335;
+// using System.Reflection.PortableExecutable;
+// using System.Runtime.CompilerServices;
+// using System.Runtime.InteropServices;
+// using System.Runtime.InteropServices.Swift;
+// using System.Runtime.Intrinsics;
+// using System.Runtime.Intrinsics.Arm;
+// using System.Security.Cryptography;
+// using System.Security.Cryptography.X509Certificates;
+// using System.Transactions;
+// using Microsoft.VisualBasic;
 
 // int MissingNumber(int[] nums) {
 
@@ -1956,4 +1953,4 @@ using Microsoft.VisualBasic;
 // }
 
 
-SearchAlgorithms.testCode();
+// SearchAlgorithms.testCode();

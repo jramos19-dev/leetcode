@@ -1,4 +1,5 @@
 using System.Data;
+using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Swift;
@@ -158,4 +159,49 @@ public class MathAndGeometry
 
         }
     }
+
+
+    int[] PlusOne(int[] digits)
+    {
+        for (int i = digits.Length - 1; i >= 0; i--)
+        {
+            if ((digits[i] < 9))
+            {
+                digits[i]++;
+                return digits;
+            }
+
+            digits[i] = 0;
+        }
+        digits = new int[digits.Length + 1];
+        digits[0] = 1;
+        return digits;
+
+    }
+
+    double MyPow(double x, int n)
+    {
+        double b = x;
+
+        if(n > 0){
+            for (int i = 0; i < n -1; i++)
+            {
+                x *= b;
+            }
+            return x;
+        }
+        
+
+        for (int i = 0; i < Math.Abs(n) -1; i++)
+        {
+            x *= 1 / b;
+
+        }
+
+        return x;
+        
+    }
+
+
+
 }
