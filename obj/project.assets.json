@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jlram\\Desktop\\leetcode\\leetcode.csproj",
+      "projectUniqueName": "C:\\Dev\\Source\\C# Projects\\leetcode\\leetcode.csproj",
       "projectName": "leetcode",
-      "projectPath": "C:\\Users\\jlram\\Desktop\\leetcode\\leetcode.csproj",
+      "projectPath": "C:\\Dev\\Source\\C# Projects\\leetcode\\leetcode.csproj",
       "packagesPath": "C:\\Users\\jlram\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jlram\\Desktop\\leetcode\\obj\\",
+      "outputPath": "C:\\Dev\\Source\\C# Projects\\leetcode\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -72,7 +73,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
