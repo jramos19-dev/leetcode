@@ -1,11 +1,40 @@
 public class Stacks
 {
-     public List<string> GenerateParenthesis(int n) {
+    //  public List<string> GenerateParenthesis(int n) {
 
+    // }
+
+
+   public int EvalRPN(string[] tokens) {
+        Stack<int> stack = new Stack<int>();
+        foreach(string c in tokens){
+            switch(c){
+                case "+":
+                stack.Push(stack.Pop() + stack.Pop());
+                break;
+                case "-":
+                int a = stack.Pop();
+                int b = stack.Pop();
+                stack.Push(b-a);
+                break;
+                case "*":
+                stack.Push(stack.Pop() * stack.Pop());
+                break;
+                case "/":
+                int e = stack.Pop();
+                int f = stack.Pop();
+                stack.Push((int) ((double)f/e));
+                break;
+                default:
+                stack.Push(int.Parse(c));
+                break;
+
+
+              
+            }
+        }
+        return stack.Pop();
     }
-
-
-
 
 }
 
