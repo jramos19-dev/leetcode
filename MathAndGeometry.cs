@@ -1,8 +1,11 @@
 using System.Data;
+using System.Dynamic;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Swift;
+using System.Text;
 
 public class MathAndGeometry
 {
@@ -183,25 +186,81 @@ public class MathAndGeometry
     {
         double b = x;
 
-        if(n > 0){
-            for (int i = 0; i < n -1; i++)
+        if (n > 0)
+        {
+            for (int i = 0; i < n - 1; i++)
             {
                 x *= b;
             }
             return x;
         }
-        
 
-        for (int i = 0; i < Math.Abs(n) -1; i++)
+
+        for (int i = 0; i < Math.Abs(n) - 1; i++)
         {
             x *= 1 / b;
 
         }
 
         return x;
-        
+
+    }
+
+    string ConvertToTitle(int columnNumber)
+    {
+        StringBuilder result = new StringBuilder();
+
+        while (columnNumber > 0)
+        {
+            columnNumber--;
+            int remainder = columnNumber % 26;
+            char letter = (char)('A' + remainder);
+            result.Insert(0, letter);
+            columnNumber /= 26;
+
+        }
+        return result.ToString();
+
     }
 
 
+    public string GcdOfStrings(string str1, string str2)
+    {
+        int len1 = str1.Length;
+        int len2 = str2.Length;
 
+        if (str1 + str2 != str2 + str1)
+        {
+            return "";
+        }
+
+        int gcd(int a, int b)
+        {
+            return b == 0 ? a : gcd(b, a % b);
+        }
+
+        int g = gcd(str1.Length, str2.Length);
+        return str1.Substring(0, g);
+    }
+    public int[][] Transpose(int[][] matrix)
+{
+    int length = matrix.Length;
+    int width = matrix[0].Length;
+
+    int[][] result = new int[width][];
+    for (int i = 0; i < width; i++)
+    {
+        result[i] = new int[length];
+    }
+
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            result[j][i] = matrix[i][j];
+        }
+    }
+
+    return result;
+}
 }

@@ -62,4 +62,45 @@ public class SlidingWindow
 
 
     }
+
+public bool ContainsNearbyDuplicate(int[] nums, int k)
+{
+    HashSet<int> window = new HashSet<int>();
+
+    for (int i = 0; i < nums.Length; i++)
+    {
+        if (window.Contains(nums[i]))
+            return true;
+
+        window.Add(nums[i]);
+
+        if (window.Count > k)
+            window.Remove(nums[i - k]);
+    }
+
+    return false;
+}
+
+
+    // bool ContainsNearbyDuplicate(int[] nums, int k)
+    // {
+    //     int left = 0;
+    //     int right = k - 1;
+
+    //     while (right <= nums.Length - 1)
+    //     {
+    //         for (int i = left; i <= right; i++)
+    //         {
+    //             if (nums[i] == nums[left])
+    //             {
+    //                 return true;
+    //             }
+
+    //         }
+    //         left++;
+    //     }
+    //     return false;
+    // }
+
+
 }
