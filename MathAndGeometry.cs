@@ -243,24 +243,70 @@ public class MathAndGeometry
         return str1.Substring(0, g);
     }
     public int[][] Transpose(int[][] matrix)
-{
-    int length = matrix.Length;
-    int width = matrix[0].Length;
-
-    int[][] result = new int[width][];
-    for (int i = 0; i < width; i++)
     {
-        result[i] = new int[length];
-    }
+        int length = matrix.Length;
+        int width = matrix[0].Length;
 
-    for (int i = 0; i < length; i++)
-    {
-        for (int j = 0; j < width; j++)
+        int[][] result = new int[width][];
+        for (int i = 0; i < width; i++)
         {
-            result[j][i] = matrix[i][j];
+            result[i] = new int[length];
         }
+
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                result[j][i] = matrix[i][j];
+            }
+        }
+
+        return result;
     }
 
-    return result;
-}
+
+
+
+    public int RomanToInt(string s)
+    {
+
+        // 1. Create a lookup table for Roman symbols to their integer values
+        Dictionary<char, int> symbolMapping = new Dictionary<char, int>
+        {
+            { 'I', 1 },
+            { 'V', 5 },
+            { 'X', 10 },
+            { 'L', 50 },
+            { 'C', 100 },
+            { 'D', 500 },
+            { 'M', 1000 }
+        };
+
+        // 2. Initialize the result accumulator
+        int res = 0;
+
+        // 3. Iterate through each character in the input string
+        for (int i = 0; i < s.Length; i++)
+        {
+            // 3a. If this symbol is less than the next one, we have a “subtractive” case
+            //     e.g. IV (1 before 5) or IX (1 before 10)
+            if (i + 1 < s.Length && symbolMapping[s[i]] < symbolMapping[s[i + 1]])
+            {
+                // Subtract current value
+                res -= symbolMapping[s[i]];
+            }
+            else
+            {
+                // Otherwise, just add the current value
+                res += symbolMapping[s[i]];
+            }
+        }
+
+        // 4. Return the final computed integer
+        return res;
+
+
+    }
+
+
 }
