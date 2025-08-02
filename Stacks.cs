@@ -1,13 +1,92 @@
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Globalization;
+
+
+public class StockSpanner {
+
+    Stack<Tuple<int, int>> stack;
+    public StockSpanner()
+    {
+        stack = new Stack<Tuple<int, int>>();
+    }
+
+    public int Next(int price)
+    {
+        int span = 1; // Start with span = 1 to include the current day
+
+        // While the stack is not empty AND the top price is less than or equal to the current price,
+        // we "merge" their spans, since today's price breaks their streak
+        while (!(stack.Count == 0) && stack.Peek().Item1 <= price)
+        {
+            // Add the span of the top element to today's span
+            // (because all those days had lower or equal prices)
+            span += stack.Peek().Item2;
+            stack.Pop(); // Remove that price since it's now part of today's span
+        }
+
+        // Push the current price and its total span to the stack
+        // (so it can help future days compute their spans)
+        stack.Push(new Tuple<int, int>(price, span));
+
+        // Return the span for the current day's price
+        return span;
+    }
+}
+
 
 public class Stacks
 {
+
+    public int[] AsteroidCollision(int[] asteroids)
+    {
+
+        Stack<int> stack = new Stack<int>(); // Stack to keep track of surviving asteroids
+
+        foreach (int a in asteroids)
+        {
+            int current = a;
+
+            // Collision check: only happens if current asteroid is moving left (negative)
+            // and there's an asteroid on the stack moving right (positive)
+            while (stack.Count > 0 && current < 0 && stack.Peek() > 0)
+            {
+                int diff = current + stack.Peek(); // Simulate collision: net size
+
+                if (diff < 0)
+                {
+                    // Current asteroid is larger (more negative), so the one on stack explodes
+                    stack.Pop();
+                    // Keep checking the next asteroid in the stack
+                }
+                else if (diff > 0)
+                {
+                    // Asteroid on the stack is larger, so current one explodes
+                    current = 0; // Set to 0 to mark as destroyed
+                }
+                else
+                {
+                    // Equal size, both explode
+                    current = 0;
+                    stack.Pop();
+                }
+            }
+
+            // If current asteroid survived all collisions, push it to the stack
+            if (current != 0)
+            {
+                stack.Push(current);
+            }
+        }
+
+        return stack.Reverse().ToArray();
+
+
+    }
     //  public List<string> GenerateParenthesis(int n) {
-<<<<<<< HEAD
-
     // }
-
+}
     public int CalPoints(string[] operations)
     {
 
@@ -38,8 +117,6 @@ public class Stacks
         }
 
         return list.Sum();
-=======
->>>>>>> dc0bf5164fdf7477292df119e6abbcf710cfecf3
 
     // }
 

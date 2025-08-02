@@ -2,6 +2,7 @@ using System.ComponentModel.Design;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Security.Cryptography.X509Certificates;
 
 public class ArraysAndHashing
@@ -70,7 +71,29 @@ public List<List<int>> FourSum(int[] nums, int target)
     return results;
 }
 
+    public void Rotate(int[] nums, int k)
+    {
+        
+    int n = nums.Length; // Step 1: Get the length of the array
+        
+        k %= n; // Step 2: Normalize k so it’s within the bounds of the array (k = k % n)
 
+        int[] rotated = new int[n]; // Step 3: Create a new array to store the rotated result
+
+        // Step 4: Copy the last k elements from nums to the beginning of rotated
+        // Example: if nums = [1,2,3,4,5,6,7] and k = 3
+        // nums[n-k] = nums[4] = 5 -> copying [5,6,7] to rotated[0..2]
+        Array.Copy(nums, n - k, rotated, 0, k);
+
+        // Step 5: Copy the first n-k elements to the rest of rotated
+        // Copying [1,2,3,4] to rotated[3..6]
+        Array.Copy(nums, 0, rotated, k, n - k);
+
+        // Step 6: Copy the rotated array back into the original nums array
+        // So that the input array reflects the rotated version
+        Array.Copy(rotated, nums, n);
+        
+    }
     public int FindJudge(int n, int[][] trust)
     {
         int[] incoming = new int[n + 1];

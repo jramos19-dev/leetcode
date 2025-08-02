@@ -118,6 +118,28 @@ public class TwoPointers
         // 'l' is the index of the last unique element, so total unique elements = l + 1.
         return l + 1;
     }
+    public int NumRescueBoats(int[] people, int limit)
+    {
+        Array.Sort(people);
 
+        int l = 0;
+        int r = people.Length - 1;
+        int boats = 0;
+        while (l <= r)
+        {
+            int remaining = limit - people[r];
+            r--;
+            boats++;
+
+            if (l <= r && remaining >= people[l])
+            {
+                l++;
+            }
+        }
+        return boats;
+        
+
+
+    }
 
 }
